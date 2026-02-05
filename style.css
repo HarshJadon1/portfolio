@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+body {
+    background: #000;
+    color: #00ff9c;
+    font-family: 'Source Code Pro', monospace;
+    padding: 30px;
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    background: #00ff9c;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+section {
+    margin-bottom: 35px;
+}
+
+.command {
+    color: #00d9ff;
+}
+
+.output {
+    margin-left: 20px;
+    color: #e5e5e5;
+}
+
+a {
+    color: #00ff9c;
+    text-decoration: none;
+}
+
+#terminal {
+    max-width: 900px;
+    margin: auto;
+}
+
+.command {
+    color: #00d9ff;
+    margin-top: 20px;
+}
+
+.output {
+    color: #e5e5e5;
+    margin-left: 20px;
+    white-space: pre-wrap;
+}
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
