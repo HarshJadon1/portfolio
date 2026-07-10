@@ -14,7 +14,7 @@ const drops = Array(Math.floor(columns)).fill(1);
 function drawMatrix() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#00ff9c";
+  ctx.fillStyle = "#005f3b";
   ctx.font = fontSize + "px monospace";
 
   for (let i = 0; i < drops.length; i++) {
@@ -26,7 +26,7 @@ function drawMatrix() {
     drops[i]++;
   }
 }
-setInterval(drawMatrix, 5);
+setInterval(drawMatrix, 94);
 
 const terminal = document.getElementById("terminal");
 
@@ -69,29 +69,38 @@ Result: Highly motivated developer with strong fundamentals.
 Status: READY FOR INTERNSHIPS & PLACEMENTS 🚀`
   },
   {
-    cmd: "> contact --show",
+    cmd: "> contact --show github",
     output:
-      `Email: jadonharsh209@gmail.com
-GitHub: github.com/harshjadon1
-LinkedIn: linkedin.com/in/harsh-jadon`
+      `github.com/harshjadon1`
+  },
+  {
+    cmd: "> contact --show linkedin not working for now",
+    output:
+      `https://www.linkedin.com/in/harsh-jadon-7ab7712b5?`
+  }
+  ,
+  {
+    cmd: "> contact --show email",
+    output:
+      `jadonharsh209@gmail.com`
   }
 ];
 
 
 let commandIndex = 0;
 
-function typeText(text, element, speed = 40) {
+function typeText(text, element, speed = 50) {
   return new Promise(resolve => {
     let i = 0;
     const interval = setInterval(() => {
-      element.textContent += text[i];
+      element.innerHTML += text[i];
       i++;
       if (i === text.length) {
         clearInterval(interval);
         resolve();
       }
     }, speed);
-  });
+  })
 }
 
 async function startTerminal() {
@@ -101,12 +110,36 @@ async function startTerminal() {
     terminal.appendChild(cmdLine);
 
     await typeText(item.cmd, cmdLine);
-
     const output = document.createElement("pre");
+    output.setAttribute("id", `output-${commandIndex++}`);
     output.className = "output";
     terminal.appendChild(output);
-
     await typeText(item.output, output, 20);
+    // github link handling
+    if (commands[6].output.includes("github")) {
+      let element = document.getElementById(`output-6`)
+      if (element != null) {
+        element.innerHTML = `<a href="https://github.com/harshjadon1" target="_blank">${commands[6].output}</a>`
+      }
+    }
+
+    // linkedin link handling
+    if (commands[7].output.includes("linkedin")) {
+      let element = document.getElementById(`output-7`)
+      if (element != null) {
+        element.innerHTML = `<a href="https://linkedin.com/in/harsh-jadon" target="_blank">${commands[7].output}</a>`
+      }
+    }
+    // gmaail link handling
+    if (commands[8].output.includes("mail")) {
+      let element = document.getElementById(`output-8`)
+      if (element != null) {
+        element.innerHTML = `<a href="mailto:jadonharsh209@gmail.com" target="_blank">${commands[8].output}</a>`
+      }
+    }
+
   }
 }
+
+console.log(commands[6].output)
 startTerminal();
